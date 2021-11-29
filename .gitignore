@@ -1,2 +1,9 @@
 /skia
 /dist
+/.vscode
+/examples/shapes/shapes
+/examples/skcanvas_paint/skcanvas_paint
+/examples/hello_world/hello_world
+/examples/hello_world/Makefile
+/examples/hello_world/xcode
+/examples/rects/rects
