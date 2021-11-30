@@ -16,6 +16,10 @@
 		652ADA99273D8C490009E305 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA98273D8C490009E305 /* CoreFoundation.framework */; };
 		652ADAA1273D908E0009E305 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADAA0273D908E0009E305 /* OpenGL.framework */; };
 		652ADB3827404DEC0009E305 /* hello_world.c in Sources */ = {isa = PBXBuildFile; fileRef = 652ADB3127404DEC0009E305 /* hello_world.c */; };
+		6535AD1D27559ED600F03632 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA92273D8BB70009E305 /* Cocoa.framework */; };
+		6535AD1E27559ED600F03632 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA96273D8C410009E305 /* IOKit.framework */; };
+		6535AD1F27559ED600F03632 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADAA0273D908E0009E305 /* OpenGL.framework */; };
+		6535AD2B27559F2000F03632 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6535AD2A27559F2000F03632 /* main.c */; };
 		653B806227494A05007D158D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 653B806127494A05007D158D /* main.c */; };
 		653B806C27494C58007D158D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADA98273D8C490009E305 /* CoreFoundation.framework */; };
 		653B806D27494C6A007D158D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 652ADAA0273D908E0009E305 /* OpenGL.framework */; };
@@ -34,6 +38,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		652ADA79273D88EC0009E305 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		6535AD2027559ED600F03632 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -62,6 +75,8 @@
 		652ADA98273D8C490009E305 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		652ADAA0273D908E0009E305 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		652ADB3127404DEC0009E305 /* hello_world.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hello_world.c; sourceTree = "<group>"; };
+		6535AD2427559ED600F03632 /* picture_recorder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = picture_recorder; sourceTree = BUILT_PRODUCTS_DIR; };
+		6535AD2A27559F2000F03632 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		653B804D27494976007D158D /* skcanvas_paint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = skcanvas_paint; sourceTree = BUILT_PRODUCTS_DIR; };
 		653B806127494A05007D158D /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		653B807527494C91007D158D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -87,6 +102,16 @@
 				652ADAA1273D908E0009E305 /* OpenGL.framework in Frameworks */,
 				652ADA97273D8C410009E305 /* IOKit.framework in Frameworks */,
 				652ADA99273D8C490009E305 /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6535AD1C27559ED600F03632 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6535AD1D27559ED600F03632 /* Cocoa.framework in Frameworks */,
+				6535AD1E27559ED600F03632 /* IOKit.framework in Frameworks */,
+				6535AD1F27559ED600F03632 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +141,7 @@
 		652ADA61273D887E0009E305 = {
 			isa = PBXGroup;
 			children = (
+				6535AD2927559F2000F03632 /* picture_recorder */,
 				652ADB2A27404DEB0009E305 /* hello_world */,
 				653B804827494959007D158D /* skcanvas_paint */,
 				65232BEF2751529300C0144B /* rects */,
@@ -130,6 +156,7 @@
 				652ADA7B273D88EC0009E305 /* hello_world */,
 				653B804D27494976007D158D /* skcanvas_paint */,
 				65232BEE2751529200C0144B /* rects */,
+				6535AD2427559ED600F03632 /* picture_recorder */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,6 +181,15 @@
 			);
 			name = hello_world;
 			path = ../hello_world;
+			sourceTree = "<group>";
+		};
+		6535AD2927559F2000F03632 /* picture_recorder */ = {
+			isa = PBXGroup;
+			children = (
+				6535AD2A27559F2000F03632 /* main.c */,
+			);
+			name = picture_recorder;
+			path = ../picture_recorder;
 			sourceTree = "<group>";
 		};
 		653B804827494959007D158D /* skcanvas_paint */ = {
@@ -200,6 +236,23 @@
 			name = hello_world;
 			productName = hello_world;
 			productReference = 652ADA7B273D88EC0009E305 /* hello_world */;
+			productType = "com.apple.product-type.tool";
+		};
+		6535AD1927559ED600F03632 /* picture_recorder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6535AD2127559ED600F03632 /* Build configuration list for PBXNativeTarget "picture_recorder" */;
+			buildPhases = (
+				6535AD1A27559ED600F03632 /* Sources */,
+				6535AD1C27559ED600F03632 /* Frameworks */,
+				6535AD2027559ED600F03632 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = picture_recorder;
+			productName = rects;
+			productReference = 6535AD2427559ED600F03632 /* picture_recorder */;
 			productType = "com.apple.product-type.tool";
 		};
 		653B804C27494976007D158D /* skcanvas_paint */ = {
@@ -254,6 +307,7 @@
 				652ADA7A273D88EC0009E305 /* hello_world */,
 				653B804C27494976007D158D /* skcanvas_paint */,
 				65232BED2751529200C0144B /* rects */,
+				6535AD1927559ED600F03632 /* picture_recorder */,
 			);
 		};
 /* End PBXProject section */
@@ -272,6 +326,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				652ADB3827404DEC0009E305 /* hello_world.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6535AD1A27559ED600F03632 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6535AD2B27559F2000F03632 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +548,32 @@
 			};
 			name = Release;
 		};
+		6535AD2227559ED600F03632 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6535AD2327559ED600F03632 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		653B805227494976007D158D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -538,6 +626,15 @@
 			buildConfigurations = (
 				652ADA80273D88ED0009E305 /* Debug */,
 				652ADA81273D88ED0009E305 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6535AD2127559ED600F03632 /* Build configuration list for PBXNativeTarget "picture_recorder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6535AD2227559ED600F03632 /* Debug */,
+				6535AD2327559ED600F03632 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
