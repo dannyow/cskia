@@ -31,3 +31,10 @@ Copy of this Skia fiddle: https://fiddle.skia.org/c/@skcanvas_paint
 ### Rects
 
 <kbd><img src="./examples/rects/screen.gif" width="256" /></kbd>
+
+
+## Extension on CSkia
+
+### SkPictureRecorder
+
+<kbd><img src="./examples/picture_recorder/screen.gif" width="256" /></kbd>
