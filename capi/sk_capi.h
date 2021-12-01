@@ -847,6 +847,20 @@ SK_C_API int sk_typeface_get_units_per_em(const sk_typeface_t* typeface);
 SK_C_API bool sk_typeface_is_fixed_pitch(const sk_typeface_t* typeface);
 SK_C_API void sk_typeface_unref(sk_typeface_t* typeface);
 
+// === Experimental Extras
+
+void sk_surface_flush_and_submit(sk_surface_t* surface, bool syncCpu);
+typedef struct sk_picture_recorder_t sk_picture_recorder_t;
+typedef struct sk_picture_t sk_picture_t;
+
+SK_C_API sk_picture_recorder_t* sk_picture_recorder_new();
+SK_C_API void sk_picture_recorder_delete(sk_picture_recorder_t* recorder);
+SK_C_API sk_canvas_t* sk_picture_recorder_begin_recording(sk_picture_recorder_t* recorder, const sk_rect_t* bounds);
+SK_C_API sk_picture_t* sk_picture_recorder_end_recording(sk_picture_recorder_t* recorder);
+SK_C_API void sk_picture_ref(sk_picture_t* picture);
+SK_C_API void sk_picture_unref(sk_picture_t* picture);
+
+    SK_C_API void sk_canvas_draw_picture(sk_canvas_t * ccanvas, const sk_picture_t* cpicture, const sk_matrix_t* cmatrix, const sk_paint_t* cpaint);
 #ifdef __cplusplus
 }
 #endif // __cplusplus

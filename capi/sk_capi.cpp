@@ -28,6 +28,8 @@
 #include "include/pathops/SkPathOps.h"
 #include "include/utils/SkParsePath.h"
 
+#include "include/core/SkPictureRecorder.h"
+
 #define SK_SKIP_ARG__(keep, skip, ...) skip
 #define SK_SKIP_ARG_(args) SK_SKIP_ARG__ args
 #define SK_SKIP_ARG(...) SK_SKIP_ARG_((__VA_ARGS__, ))
@@ -1377,4 +1379,47 @@ bool sk_typeface_is_fixed_pitch(const sk_typeface_t* typeface) {
 
 void sk_typeface_unref(sk_typeface_t* typeface) {
     SkSafeUnref(reinterpret_cast<SkTypeface*>(typeface));
+}
+
+// === Experimental Extras
+void sk_surface_flush_and_submit(sk_surface_t* surface, bool syncCpu) {
+    reinterpret_cast<SkSurface*>(surface)->flushAndSubmit(syncCpu);
+}
+
+// ===== Functions from include/core/SkPictureRecorder.h =====
+
+sk_picture_recorder_t* sk_picture_recorder_new() {
+    return reinterpret_cast<sk_picture_recorder_t*>(new SkPictureRecorder);
+}
+
+void sk_picture_recorder_delete(sk_picture_recorder_t* recorder) {
+    delete reinterpret_cast<SkPictureRecorder*>(recorder);
+}
+
+sk_canvas_t* sk_picture_recorder_begin_recording(sk_picture_recorder_t* recorder, const sk_rect_t* bounds){
+    // return ToCanvas(AsPictureRecorder(crec)->beginRecording(AsRect(*bounds)));
+    return reinterpret_cast<sk_canvas_t*>(reinterpret_cast<SkPictureRecorder*>(recorder)->beginRecording((*reinterpret_cast<const SkRect*>(bounds))));
+}
+
+sk_picture_t* sk_picture_recorder_end_recording(sk_picture_recorder_t* recorder) {
+    //return ToPicture(AsPictureRecorder(crec)->finishRecordingAsPicture().release());
+    return reinterpret_cast<sk_picture_t*>(reinterpret_cast<SkPictureRecorder*>(recorder)->finishRecordingAsPicture().release());
+}
+void sk_picture_ref(sk_picture_t* picture) {
+    SkSafeRef(reinterpret_cast<SkPicture*>(picture));
+}
+void sk_picture_unref(sk_picture_t* picture) {
+    SkSafeUnref(reinterpret_cast<SkPicture*>(picture));
+}
+
+void sk_canvas_draw_picture(sk_canvas_t* ccanvas, const sk_picture_t* cpicture, const sk_matrix_t* cmatrix, const sk_paint_t* cpaint) {
+    const SkMatrix* matrixPtr = nullptr;
+    SkMatrix matrix;
+    if (cmatrix) {
+        //from_c_matrix(cmatrix, &matrix);
+        matrix = AsMatrix(cmatrix);
+        matrixPtr = &matrix;
+    }
+    //AsCanvas(ccanvas)->drawPicture(AsPicture(cpicture), matrixPtr, AsPaint(cpaint));
+    reinterpret_cast<SkCanvas*>(ccanvas)->drawPicture(reinterpret_cast<const SkPicture*>(cpicture), matrixPtr, reinterpret_cast<const SkPaint*>(cpaint));
 }
