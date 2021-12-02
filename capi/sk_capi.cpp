@@ -694,7 +694,7 @@ int sk_fontstyle_get_width(const sk_font_style_t* fs) {
     return reinterpret_cast<const SkFontStyle*>(fs)->width();
 }
 
-sk_font_style_t* sk_fontstyle_new(int weight, int width, sk_font_style_slant_t slant) {
+sk_font_style_t* sk_fontstyle_new(sk_font_style_weight_t weight, sk_font_style_width_t width, sk_font_style_slant_t slant) {
     return reinterpret_cast<sk_font_style_t*>(new SkFontStyle(weight, width,(SkFontStyle::Slant)slant));
 }
 
@@ -1422,4 +1422,72 @@ void sk_canvas_draw_picture(sk_canvas_t* ccanvas, const sk_picture_t* cpicture, 
     }
     //AsCanvas(ccanvas)->drawPicture(AsPicture(cpicture), matrixPtr, AsPaint(cpaint));
     reinterpret_cast<SkCanvas*>(ccanvas)->drawPicture(reinterpret_cast<const SkPicture*>(cpicture), matrixPtr, reinterpret_cast<const SkPaint*>(cpaint));
+}
+
+// ===== Advanced Text Shaping =====
+
+#if defined(__APPLE__) && defined(__MACH__)
+#define SK_SHAPER_CORETEXT_AVAILABLE
+#else
+#define SK_SHAPER_HARFBUZZ_AVAILABLE
+#define SK_UNICODE_AVAILABLE
+#endif
+#include "modules/skshaper/include/SkShaper.h"
+
+sk_text_blob_t* sk_shaper_shape_text_for_width(float textWidth, const char* utfString, const sk_font_t* cfont, const sk_point_t* margin) {
+    float marginX = margin->x;
+    float marginY = margin->y;
+
+    SkPoint offset = SkPoint::Make(marginX, marginY);
+    SkTextBlobBuilderRunHandler builder(utfString, offset);
+
+    size_t utfStringBytes = strlen(utfString);
+
+    std::unique_ptr<SkShaper::BiDiRunIterator> bidi(SkShaper::MakeBiDiRunIterator(utfString, utfStringBytes, 0xfe));
+    if (!bidi) {
+        printf("MakeBiDiRunIterator is NULL\n");
+        return NULL;
+    }
+
+     std::unique_ptr<SkShaper::LanguageRunIterator> language(SkShaper::MakeStdLanguageRunIterator(utfString, utfStringBytes));
+    if (!language) {
+        printf("MakeStdLanguageRunIterator is NULL\n");
+        return NULL;
+    }
+
+    // http://www.manpagez.com/html/harfbuzz/harfbuzz-0.9.25/harfbuzz-hb-common.php
+    SkFourByteTag scriptTag = SkSetFourByteTag('Z', 'y', 'y', 'y');
+    // SkFourByteTag scriptTag = SkSetFourByteTag('A', 'r', 'a', 'b');
+    std::unique_ptr<SkShaper::ScriptRunIterator> script(SkShaper::MakeScriptRunIterator(utfString, utfStringBytes, scriptTag));
+    if (!script) {
+        printf("MakeScriptRunIterator is NULL\n");
+        return NULL;
+    }
+    //  SkFontStyle fontStyle = SkFontStyle::Normal();  // reinterpret_cast<SkFontStyle*>(cfontStyle);
+    std::unique_ptr<SkShaper::FontRunIterator>
+        font(
+            SkShaper::MakeFontMgrRunIterator(utfString, utfStringBytes,
+                                             *reinterpret_cast<const SkFont*>(cfont), SkFontMgr::RefDefault(),
+                                             "Skia", SkFontStyle::Normal() /* *reinterpret_cast<SkFontStyle*>(cfontStyle) */, 
+                                             &*language));
+    if (!font) {
+        printf("MakeFontMgrRunIterator is NULL\n");
+        return NULL;
+    }
+
+#if defined(__APPLE__) && defined(__MACH__)
+    auto fShaper = SkShaper::MakeCoreText();
+#else
+    auto fShaper = SkShaper::MakeShaperDrivenWrapper();
+    // auto fShaper = SkShaper::MakeShapeThenWrap();
+    // auto fShaper = SkShaper::MakeShapeDontWrapOrReorder();
+#endif
+
+    // Make() returns SkShaperPrimitive instance on macOS
+    // std::unique_ptr<SkShaper> shaper = SkShaper::Make();
+    // shaper->shape(utfString, utfStringBytes, *font, *bidi, *script, *language, textWidth, &builder);
+
+    fShaper->shape(utfString, utfStringBytes, *font, *bidi, *script, *language, (textWidth - marginX - marginX), &builder);
+    sk_sp<SkTextBlob> blob = builder.makeBlob();
+    return reinterpret_cast<sk_text_blob_t*>(blob.release());
 }

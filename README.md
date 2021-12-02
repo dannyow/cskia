@@ -37,4 +37,13 @@ Copy of this Skia fiddle: https://fiddle.skia.org/c/@skcanvas_paint
 
 ### SkPictureRecorder
 
+An example of using SkPictureRecorder to optimize rendering.
+
 <kbd><img src="./examples/picture_recorder/screen.gif" width="256" /></kbd>
+
+
+### Advanced Text
+
+An example of advanced UTF text shaping and font substitution.
+
+<kbd><img src="./examples/advanced_text/screen.gif" width="256" /></kbd>

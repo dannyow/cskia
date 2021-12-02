@@ -102,7 +102,7 @@ COMMON_ARGS=" \
 case $(uname -s) in
 Darwin*)
   OS_TYPE=darwin
-  LIB_NAME=libskia.a
+  LIB_NAME=(libskia.a libskshaper.a)
   UNISON_LIB_NAME=libskia_darwin.a
   export MACOSX_DEPLOYMENT_TARGET=10.13
   PLATFORM_ARGS=" \
@@ -126,7 +126,7 @@ Darwin*)
   ;;
 Linux*)
   OS_TYPE=linux
-  LIB_NAME=libskia.a
+  LIB_NAME=(libskia.a libskshaper.a libskunicode.a)
   UNISON_LIB_NAME=libskia_linux.a
   PLATFORM_ARGS=" \
       skia_enable_fontmgr_win=false \
@@ -226,7 +226,9 @@ mkdir -p ${DIST}/include
 /bin/rm -f ${DIST}/include/*.h
 cp include/sk_capi.h ${DIST}/include/
 mkdir -p ${DIST}/lib/${OS_TYPE}
-cp ${BUILD_DIR}/${LIB_NAME} ${DIST}/lib/${OS_TYPE}/
+for libFile in "${LIB_NAME[@]}" ; do 
+    cp ${BUILD_DIR}/${libFile} ${DIST}/lib/${OS_TYPE}/
+done
 
 cd ../..
 
