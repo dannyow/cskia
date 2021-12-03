@@ -1487,7 +1487,7 @@ sk_text_blob_t* sk_shaper_shape_text_for_width(float textWidth, const char* utfS
     // std::unique_ptr<SkShaper> shaper = SkShaper::Make();
     // shaper->shape(utfString, utfStringBytes, *font, *bidi, *script, *language, textWidth, &builder);
 
-    fShaper->shape(utfString, utfStringBytes, *font, *bidi, *script, *language, (textWidth - marginX - marginX), &builder);
+    fShaper->shape(utfString, utfStringBytes, *font, *bidi, *script, *language, (textWidth), &builder);
     sk_sp<SkTextBlob> blob = builder.makeBlob();
     return reinterpret_cast<sk_text_blob_t*>(blob.release());
 }
