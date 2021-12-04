@@ -46,4 +46,11 @@ An example of using SkPictureRecorder to optimize rendering.
 
 An example of advanced UTF text shaping and font substitution.
 
-<kbd><img src="./examples/advanced_text/screen.gif" width="256" /></kbd>
+<kbd><img src="./examples/advanced_text/screen.png" width="256" /></kbd>
+
+
+### Non-latin text shaping and paths
+
+<kbd><img src="./examples/rendering-perf/screen.png" width="256" /></kbd>
+
+
